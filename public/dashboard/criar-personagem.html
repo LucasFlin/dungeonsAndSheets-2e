@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <link rel="shortcut icon" href="../assets/icon/DNS_Logo-com fundo.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dungeons & Sheets - 2e | Tempo Real</title>
+
+
+    <link rel="stylesheet" href="./../css/dashboards.css">
+    <link rel="stylesheet" href="./../css/estilo.css" />
+
+    <script src="../js/sessao.js"></script>
+    <script src="../js/alerta.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+</head>
+
+<!-- <body onload="validarSessao(), exibirAquarios(),  atualizacaoPeriodica()"> -->
+
+<body>
+
+    <div class="janela">
+
+        <div class="header-left dash-header">
+
+            <img src="../assets/icon/DNS_Logo-full-branco.png" class="logo-header">
+
+            <div class="hello">
+                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
+            </div>
+
+            <div class="btn-nav-white">
+                <a href="./personagens.html">
+                    <h3>Personagens</h3>
+                </a>
+            </div>
+
+            <div class="btn-nav">
+                <h3>Criar Personagens</h3>
+            </div>
+
+            <div class="btn-nav-white">
+                <a href="./dashboard.html">
+                    <h3>Gráficos</h3>
+                </a>
+            </div>
+
+            <div class="btn-logout" onclick="limparSessao()">
+                <h3>Sair</h3>
+            </div>
+
+        </div>
+
+        <div class="dash ficha">
+            <div class="ficha-caixas-input">
+                <span>Nome:</span>
+                <input class="ficha-input-nome" type="text" id="ipt_nome">
+            </div>
+            <div class="ficha-campos">
+                <div class="ficha-caixas-input">
+                    <span>Raça:</span>
+                    <input class="ficha-input" type="text" id="ipt_raca">
+                </div>
+                <div class="ficha-caixas-input">
+                    <span>Classe:</span>
+                    <select class="ficha-input" id="ipt_classe">
+                        <option value="guerreiro">Guerreiro</option>
+                        <option value="ladino">Ladino</option>
+                        <option value="mago">Mago</option>
+                        <option value="bruxo">Bruxo</option>
+                        <option value="druida">Druida</option>
+                        <option value="feiticeiro">Feiticeiro</option>
+                        <option value="paladino">Paladino</option>
+                        <option value="clerigo">Clérigo</option>
+                        <option value="barbaro">Barbaro</option>
+                        <option value="bardo">Bardo</option>
+                        <option value="monge">Monge</option>
+                        <option value="patrulheiro">Patrulheiro</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <div class="ficha-stats">
+                    <div class="atributo">
+                        <p>Força</p>
+                        <input type="number" id="ipt_for" class='ipt_atributo' oninput="atualizaTxt(ipt_for, div_for)">
+                        <div id="div_for">0</div>
+                    </div>
+                    <div class="atributo">
+                        <p>Destreza</p>
+                        <input type="number" id="ipt_dex" class='ipt_atributo' oninput="atualizaTxt(ipt_dex, div_dex)">
+                        <div id="div_dex">0</div>
+                    </div>
+                    <div class="atributo">
+                        <p>Constituição</p>
+                        <input type="number" id="ipt_const" class='ipt_atributo'
+                            oninput="atualizaTxt(ipt_const, div_con)">
+                        <div id="div_con">0</div>
+                    </div>
+                    <div class="atributo">
+                        <p>Inteligência</p>
+                        <input type="number" id="ipt_int" class='ipt_atributo' oninput="atualizaTxt(ipt_int, div_int)">
+                        <div id="div_int">0</div>
+                    </div>
+                    <div class="atributo">
+                        <p>Sabedoria</p>
+                        <input type="number" id="ipt_sab" class='ipt_atributo' oninput="atualizaTxt(ipt_sab, div_sab)">
+                        <div id="div_sab">0</div>
+                    </div>
+                    <div class="atributo">
+                        <p>Carisma</p>
+                        <input type="number" id="ipt_car" class='ipt_atributo' oninput="atualizaTxt(ipt_car, div_car)">
+                        <div id="div_car">0</div>
+                    </div>
+                </div>
+                <div class="ficha-pericias">
+                    <div>
+                        <button onclick="check('acrobaciaPersonagem', acrobacia)">
+                            <div id="acrobacia" class="dadinho"></div>Acrobacia (Des)
+                        </button>
+                    </div>
+                    <div>
+                        <button onclick="check('arcanismoPersonagem',arcanismo)">
+                            <div id="arcanismo" class="dadinho"></div>Arcanismo (Int)
+                        </button>
+                    </div>
+                    <div>
+                        <button onclick="check('atletismoPersonagem',atletismo)">
+                            <div id="atletismo" class="dadinho"></div>Atletismo (For)
+                        </button>
+                    </div>
+                    <div>
+                        <button onclick="check('atuacaoPersonagem',atuacao)">
+                            <div id="atuacao" class="dadinho"></div>Atuação (Car)
+                        </button>
+                    </div>
+                    <div>
+                        <button onclick="check('enganacaoPersonagem',enganacao)">
+                            <div id="enganacao" class="dadinho"></div>Enganação (Car)
+                        </button>
+                    </div>
+                    <div>
+                        <button onclick="check('furtividadePersonagem',furtividade)">
+                            <div id="furtividade" class="dadinho"></div>Furtividade (Des)
+                        </button>
+                    </div>
+                    <div>
+                        <button onclick="check('historiaPersonagem',historia)">
+                            <div id="historia" class="dadinho"></div>Historia (Int)
+                        </button>
+                    </div>
+                    <div>
+                        <button onclick="check('intimidacaoPersonagem',intimidacao)">
+                            <div id="intimidacao" class="dadinho"></div>Intimidação (Car)
+                        </button>
+                    </div>
+                    <div>
+                        <button onclick="check('intuicaoPersonagem',intuicao)">
+                            <div id="intuicao" class="dadinho"></div>Intuição (Sab)
+                        </button>
+                    </div>
+                    <div>
+                        <button onclick="check('investicacaoPersonagem',investicacao)">
+                            <div id="investicacao" class="dadinho"></div>Investigação (Int)
+                        </button>
+                    </div>
+                    <div>
+                        <button onclick="check('lidarPersonagem',lidar)">
+                            <div id="lidar" class="dadinho"></div>Lidar com Animais (Sab)
+                        </button>
+                    </div>
+                    <div>
+                        <button onclick="check('medicinaPersonagem',medicina)">
+                            <div id="medicina" class="dadinho"></div>Medicina (Sab)
+                        </button>
+                    </div>
+                    <div>
+                        <button onclick="check('naturezaPersonagem',natureza)">
+                            <div id="natureza" class="dadinho"></div>Natureza (Int)
+                        </button>
+                    </div>
+                    <div>
+                        <button onclick="check('percepcaoPersonagem',percepcao)">
+                            <div id="percepcao" class="dadinho"></div>Percepção (Sab)
+                        </button>
+                    </div>
+                    <div>
+                        <button onclick="check('persuasaoPersonagem',persuasao)">
+                            <div id="persuasao" class="dadinho"></div>Persuasão (Car)
+                        </button>
+                    </div>
+                    <div>
+                        <button onclick="check('prestidigitacaoPersonagem',prestidigitacao)">
+                            <div id="prestidigitacao" class="dadinho"></div>Prestidigitação (Des)
+                        </button>
+                    </div>
+                    <div>
+                        <button onclick="check('religiaoPersonagem',religiao)">
+                            <div id="religiao" class="dadinho"></div>Religião (Int)
+                        </button>
+                    </div>
+                    <div>
+                        <button onclick="check('sobrevivenciaPersonagem',sobrevivencia)">
+                            <div id="sobrevivencia" class="dadinho"></div>Sobrevivência (Sab)
+                        </button>
+                    </div>
+                </div>
+                <div class="ficha-botao">
+                    <button onclick="criarPersonagem()" class="botao">Criar Personagem</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+<script>
+    let acrobaciaPersonagem = 0
+    let arcanismoPersonagem = 0
+    let atletismoPersonagem = 0
+    let atuacaoPersonagem = 0
+    let enganacaoPersonagem = 0
+    let furtividadePersonagem = 0
+    let historiaPersonagem = 0
+    let intimidacaoPersonagem = 0
+    let intuicaoPersonagem = 0
+    let investicacaoPersonagem = 0
+    let lidarPersonagem = 0
+    let medicinaPersonagem = 0
+    let naturezaPersonagem = 0
+    let percepcaoPersonagem = 0
+    let persuasaoPersonagem = 0
+    let prestidigitacaoPersonagem = 0
+    let religiaoPersonagem = 0
+    let sobrevivenciaPersonagem = 0
+
+    function check(pericia, div) {
+        if (pericia == "acrobaciaPersonagem") {
+            if (acrobaciaPersonagem == 0) {
+                div.classList.add("proficiente")
+                acrobaciaPersonagem = 1
+                console.log(acrobaciaPersonagem, "é falsa")
+            } else {
+                acrobaciaPersonagem = 0
+                div.classList.remove("proficiente")
+                console.log(pericia, "é vdd")
+            }
+        }
+        if (pericia == "arcanismoPersonagem") {
+            if (arcanismoPersonagem == 0) {
+                div.classList.add("proficiente")
+                arcanismoPersonagem = 1
+                console.log(acrobaciaPersonagem, "é falsa")
+            } else {
+                arcanismoPersonagem = 0
+                div.classList.remove("proficiente")
+                console.log(pericia, "é vdd")
+            }
+        }
+        if (pericia == "atletismoPersonagem") {
+            if (atletismoPersonagem == 0) {
+                div.classList.add("proficiente")
+                atletismoPersonagem = 1
+                console.log(acrobaciaPersonagem, "é falsa")
+            } else {
+                atletismoPersonagem = 0
+                div.classList.remove("proficiente")
+                console.log(pericia, "é vdd")
+            }
+        }
+        if (pericia == "atuacaoPersonagem") {
+            if (atuacaoPersonagem == 0) {
+                div.classList.add("proficiente")
+                atuacaoPersonagem = 1
+                console.log(acrobaciaPersonagem, "é falsa")
+            } else {
+                atuacaoPersonagem = 0
+                div.classList.remove("proficiente")
+                console.log(pericia, "é vdd")
+            }
+        }
+        if (pericia == "enganacaoPersonagem") {
+            if (enganacaoPersonagem == 0) {
+                div.classList.add("proficiente")
+                enganacaoPersonagem = 1
+                console.log(acrobaciaPersonagem, "é falsa")
+            } else {
+                enganacaoPersonagem = 0
+                div.classList.remove("proficiente")
+                console.log(pericia, "é vdd")
+            }
+        }
+        if (pericia == "furtividadePersonagem") {
+            if (furtividadePersonagem == 0) {
+                div.classList.add("proficiente")
+                furtividadePersonagem = 1
+                console.log(acrobaciaPersonagem, "é falsa")
+            } else {
+                furtividadePersonagem = 0
+                div.classList.remove("proficiente")
+                console.log(pericia, "é vdd")
+            }
+        }
+        if (pericia == "historiaPersonagem") {
+            if (historiaPersonagem == 0) {
+                div.classList.add("proficiente")
+                historiaPersonagem = 1
+                console.log(acrobaciaPersonagem, "é falsa")
+            } else {
+                historiaPersonagem = 0
+                div.classList.remove("proficiente")
+                console.log(pericia, "é vdd")
+            }
+        }
+        if (pericia == "intimidacaoPersonagem") {
+            if (intimidacaoPersonagem == 0) {
+                div.classList.add("proficiente")
+                intimidacaoPersonagem = 1
+                console.log(acrobaciaPersonagem, "é falsa")
+            } else {
+                intimidacaoPersonagem = 0
+                div.classList.remove("proficiente")
+                console.log(pericia, "é vdd")
+            }
+        }
+        if (pericia == "intuicaoPersonagem") {
+            if (intuicaoPersonagem == 0) {
+                div.classList.add("proficiente")
+                intuicaoPersonagem = 1
+                console.log(acrobaciaPersonagem, "é falsa")
+            } else {
+                intuicaoPersonagem = 0
+                div.classList.remove("proficiente")
+                console.log(pericia, "é vdd")
+            }
+        }
+        if (pericia == "investicacaoPersonagem") {
+            if (investicacaoPersonagem == 0) {
+                div.classList.add("proficiente")
+                investicacaoPersonagem = 1
+                console.log(acrobaciaPersonagem, "é falsa")
+            } else {
+                investicacaoPersonagem = 0
+                div.classList.remove("proficiente")
+                console.log(pericia, "é vdd")
+            }
+        }
+        if (pericia == "lidarPersonagem") {
+            if (lidarPersonagem == 0) {
+                div.classList.add("proficiente")
+                lidarPersonagem = 1
+                console.log(acrobaciaPersonagem, "é falsa")
+            } else {
+                lidarPersonagem = 0
+                div.classList.remove("proficiente")
+                console.log(pericia, "é vdd")
+            }
+        }
+        if (pericia == "medicinaPersonagem") {
+            if (medicinaPersonagem == 0) {
+                div.classList.add("proficiente")
+                medicinaPersonagem = 1
+                console.log(acrobaciaPersonagem, "é falsa")
+            } else {
+                medicinaPersonagem = 0
+                div.classList.remove("proficiente")
+                console.log(pericia, "é vdd")
+            }
+        }
+        if (pericia == "naturezaPersonagem") {
+            if (naturezaPersonagem == 0) {
+                div.classList.add("proficiente")
+                naturezaPersonagem = 1
+                console.log(acrobaciaPersonagem, "é falsa")
+            } else {
+                naturezaPersonagem = 0
+                div.classList.remove("proficiente")
+                console.log(pericia, "é vdd")
+            }
+        }
+        if (pericia == "percepcaoPersonagem") {
+            if (percepcaoPersonagem == 0) {
+                div.classList.add("proficiente")
+                percepcaoPersonagem = 1
+                console.log(acrobaciaPersonagem, "é falsa")
+            } else {
+                percepcaoPersonagem = 0
+                div.classList.remove("proficiente")
+                console.log(pericia, "é vdd")
+            }
+        }
+        if (pericia == "persuasaoPersonagem") {
+            if (persuasaoPersonagem == 0) {
+                div.classList.add("proficiente")
+                persuasaoPersonagem = 1
+                console.log(acrobaciaPersonagem, "é falsa")
+            } else {
+                persuasaoPersonagem = 0
+                div.classList.remove("proficiente")
+                console.log(pericia, "é vdd")
+            }
+        }
+        if (pericia == "prestidigitacaoPersonagem") {
+            if (prestidigitacaoPersonagem == 0) {
+                div.classList.add("proficiente")
+                prestidigitacaoPersonagem = 1
+                console.log(acrobaciaPersonagem, "é falsa")
+            } else {
+                prestidigitacaoPersonagem = 0
+                div.classList.remove("proficiente")
+                console.log(pericia, "é vdd")
+            }
+        }
+        if (pericia == "religiaoPersonagem") {
+            if (religiaoPersonagem == 0) {
+                div.classList.add("proficiente")
+                religiaoPersonagem = 1
+                console.log(acrobaciaPersonagem, "é falsa")
+            } else {
+                religiaoPersonagem = 0
+                div.classList.remove("proficiente")
+                console.log(pericia, "é vdd")
+            }
+        }
+        if (pericia == "sobrevivenciaPersonagem") {
+            if (sobrevivenciaPersonagem == 0) {
+                div.classList.add("proficiente")
+                sobrevivenciaPersonagem = 1
+                console.log(acrobaciaPersonagem, "é falsa")
+            } else {
+                sobrevivenciaPersonagem = 0
+                div.classList.remove("proficiente")
+                console.log(pericia, "é vdd")
+            }
+        }
+    }
+
+
+
+    function exibirAquarios() {
+        JSON.parse(sessionStorage.AQUARIOS).forEach(item => {
+            document.getElementById("cardAquarios").innerHTML += `
+                    <div class="card-aquario">
+                        <div class="title-aquario">
+                            <h1>${item.descricao}</h1>
+                        </div>
+                        <div class="desc-aquario">
+                        <div class="temperatura">
+                            <p id="temp_aquario_${item.id}">-°C</p>
+                        </div>
+                        <div class="cor-alerta" id="card_${item.id}"></div>
+                    </div>
+                    </div>
+                    `
+        });
+    }
+
+</script>
+
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <link rel="shortcut icon" href="../assets/icon/DNS_Logo-com fundo.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dungeons & Sheets - 2e | Dashboards</title>
+
+
+    <link rel="stylesheet" href="./../css/dashboards.css">
+    <link rel="stylesheet" href="./../css/estilo.css" />
+    <script src="../js/sessao.js"></script>
+    <script src="./../js/alerta.js"></script>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    
+
+    <!--FONT AWESOME-->
+    <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
+</head>
+
+<!-- <body onload=" atualizarFeed()"> -->
+
+<body>
+
+    <div class="janela">
+        <div class="header-left">
+            <img src="../assets/icon/DNS_Logo-full-branco.png" class="logo-header">
+
+            <div class="hello">
+                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
+            </div>
+
+            <div class="btn-nav">
+                <h3>Personagens</h3>
+            </div>
+
+            <div class="btn-nav-white">
+                <a href="./criar-personagem.html">
+                    <h3>Criar Personagens</h3>
+                </a>
+            </div>
+
+            <div class="btn-nav-white">
+                <a href="./dashboard.html">
+                    <h3>Gráficos</h3>
+                </a>
+            </div>
+
+            <div class="btn-logout" onclick="limparSessao()">
+                <h3>Sair</h3>
+            </div>
+
+        </div>
+
+        <div class="dash">
+            <div class="linha">
+                <select id="slct_personagem" oninput="trocaPersonagem()" class="select_personagem">
+                    <option value="">Selecione um personagem</option>
+                    <option value="novo">Novo personagem...</option>
+                </select>
+                <div class="hp">
+                    <div class="graf_vida">
+                        <button onclick="vida(-1)" class="botaozinho">-</button>
+                        <p id="numero_hp">--/--</p> <button onclick="vida(+1)" class="botaozinho">+</button>
+                    </div>
+                </div>
+            </div>
+            <div class="caixa_atributos">
+                <div class="atributos">
+                    <div class="atributo">
+                        <p>Força</p>
+                        <button id="roll_forca" class="dado animado" onclick="roll(forc)"></button>
+                    </div>
+                    <div class="atributo">
+                        <p>Destreza</p>
+                        <button id="roll_des" class="dado animado" onclick="roll(des)"></button>
+                    </div>
+                    <div class="atributo">
+                        <p>Constituição</p>
+                        <button id="roll_cons" class="dado animado" onclick="roll(cons)"></button>
+                    </div>
+                    <div class="atributo">
+                        <p>Inteligência</p>
+                        <button id="roll_int" class="dado animado" onclick="roll(intel)"></button>
+                    </div>
+                    <div class="atributo">
+                        <p>Sabedoria</p>
+                        <button id="roll_sab" class="dado animado" onclick="roll(sab)"></button>
+                    </div>
+                    <div class="atributo">
+                        <p>Carisma</p>
+                        <button id="roll_car" class="dado animado" onclick="roll(car)"></button>
+                    </div>
+                </div>
+                <div class="pericias">
+                    <div class="pericia">
+                        <button id="acrobacia" class="dadinho animado"
+                            onclick="rollPericia(bonusDes, acrobaciaPersonagem)"></button>
+                        <label for="acrobacia">Acrobacia <span>(Des)</span></label>
+                    </div>
+                    <div class="pericia">
+                        <button id="arcanismo" class="dadinho animado"
+                            onclick="rollPericia(bonusInt, arcanismoPersonagem)"></button>
+                        <label for="arcanismo">Arcanismo <span>(Int)</span></label>
+                    </div>
+                    <div class="pericia">
+                        <button id="atletismo" class="dadinho animado"
+                            onclick="rollPericia(bonusFor, atletismoPersonagem)"></button>
+                        <label for="atletismo">Atletismo <span>(For)</span></label>
+                    </div>
+                    <div class="pericia">
+                        <button id="atuacao" class="dadinho animado"
+                            onclick="rollPericia(bonusCar, atuacaoPersonagem)"></button>
+                        <label for="atuacao">Atuação <span>(Car)</span></label>
+                    </div>
+                    <div class="pericia">
+                        <button id="enganacao" class="dadinho animado"
+                            onclick="rollPericia(bonusCar, enganacaoPersonagem)"></button>
+                        <label for="enganacao">Enganação <span>(Car)</span></label>
+                    </div>
+                    <div class="pericia">
+                        <button id="furtividade" class="dadinho animado"
+                            onclick="rollPericia(bonusDes, furtividadePersonagem)"></button>
+                        <label for="furtividade">Furtividade <span>(Des)</span></label>
+                    </div>
+                    <div class="pericia">
+                        <button id="historia" class="dadinho animado"
+                            onclick="rollPericia(bonusInt, historiaPersonagem)"></button>
+                        <label for="historia">Historia <span>(Int)</span></label>
+                    </div>
+                    <div class="pericia">
+                        <button id="intimidacao" class="dadinho animado"
+                            onclick="rollPericia(bonusCar, intimidacaoPersonagem)"></button>
+                        <label for="intimidacao">Intimidação <span>(Car)</span></label>
+                    </div>
+                    <div class="pericia">
+                        <button id="intuicao" class="dadinho animado" onclick="rollPericia(intuicaoPersonagem)"></button>
+                        <label for="intuicao">Intuição <span>(Sab)</span></label>
+                    </div>
+                    <div class="pericia">
+                        <button id="investigacao" class="dadinho animado"
+                            onclick="rollPericia(bonusInt, investicacaoPersonagem)"></button>
+                        <label for="investigacao">Investigação <span>(Int)</span></label>
+                    </div>
+                    <div class="pericia">
+                        <button id="lidar" class="dadinho animado"
+                            onclick="rollPericia(bonusSab, lidarPersonagem)"></button>
+                        <label for="lidar">Lidar com Animais <span>(Sab)</span></label>
+                    </div>
+                    <div class="pericia">
+                        <button id="medicina" class="dadinho animado"
+                            onclick="rollPericia(bonusSab, medicinaPersonagem)"></button>
+                        <label for="medicina">Medicina <span>(Sab)</span></label>
+                    </div>
+                    <div class="pericia">
+                        <button id="natureza" class="dadinho animado"
+                            onclick="rollPericia(bonusInt, naturezaPersonagem)"></button>
+                        <label for="natureza">Natureza <span>(Int)</span></label>
+                    </div>
+                    <div class="pericia">
+                        <button id="percepcao" class="dadinho animado"
+                            onclick="rollPericia(bonusSab, percepcaoPersonagem)"></button>
+                        <label for="percepcao">Percepção <span>(Sab)</span></label>
+                    </div>
+                    <div class="pericia">
+                        <button id="persuasao" class="dadinho animado"
+                            onclick="rollPericia(bonusCar, persuasaoPersonagem)"></button>
+                        <label for="persuasao">Persuasão <span>(Car)</span></label>
+                    </div>
+                    <div class="pericia">
+                        <button id="prestidigitacao" class="dadinho animado"
+                            onclick="rollPericia(bonusDes, prestidigitacaoPersonagem)"></button>
+                        <label for="prestidigitacao">Prestidigitação <span>(Des)</span></label>
+                    </div>
+                    <div class="pericia">
+                        <button id="religiao" class="dadinho animado"
+                            onclick="rollPericia(bonusInt, religiaoPersonagem)"></button>
+                        <label for="religiao">Religião <span>(Int)</span></label>
+                    </div>
+                    <div class="pericia">
+                        <button id="sobrevivencia" class="dadinho animado"
+                            onclick="rollPericia(bonusSab, sobrevivenciaPersonagem)"></button>
+                        <label for="roll_sobrevivencia">Sobrevivência <span>(Sab)</span></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+</body>
+
+</html>
+
+<script>
+
+</script>

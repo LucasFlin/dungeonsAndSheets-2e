@@ -6,37 +6,31 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>AquaTech | Cadastro</title>
+  <title>Dungeons & Sheets - 2e | Cadastro</title>
 
   <script src="./js/sessao.js"></script>
 
   <link rel="stylesheet" href="./css/estilo.css" />
-  <link rel="icon" href="./assets/icon/favicon2.ico" />
+  <link rel="icon" href="./assets/icon/DNS_Logo-com fundo.ico" />
   <link rel="preconnect" href="https://fonts.gstatic.com" />
 </head>
 
 <body onload="listar()">
   <!--header inicio-->
   <div class="header">
-    <div class="container">
-      <h1 class="titulo">AquaTech</h1>
-      <ul class="navbar">
-        <li>
-          <a href="index.html">Inicial</a>
-        </li>
-        <li>
-          <a href="simulador.html">Simulador</a>
-        </li>
-        <li>|</li>
-        <li>
-          <a href="login.html">Login</a>
-        </li>
-        <li class="agora">
-          <a href="#">Cadastro</a>
-        </li>
-      </ul>
+        <div class="container">
+            <a href="index.html"><img src="assets/icon/DNS_Logo-full-branco.png" class="logo-header"></a>
+            <ul class="navbar">
+                <li>
+                    <a href="login.html">Login</a>
+                </li>
+                <li>|</li>
+                <li class="agora">
+                    <a href="#">Cadastro</a>
+                </li>
+            </ul>
+        </div>
     </div>
-  </div>
   <!--header fim-->
 
   <div class="login">
@@ -47,16 +41,12 @@
     </div>
     <div class="container">
       <div class="card card-cadastro">
-        <h2>Bem-vindo!</h2>
+        <h2>Formulário de admissão da Guilda</h2>
         <div class="formulario">
           <!--
                          Para inserir mais um campo, copie uma das inputs abaixo.
                          Assim que inserir vá para o script abaixo.
                      -->
-          <div class="campo">
-            <span>Código de ativação:</span>
-            <input id="codigo_input" type="text" placeholder="Insira aqui seu código" />
-          </div>
           <div class="campo">
             <span>Nome:</span>
             <input id="nome_input" type="text" placeholder="Seu nome" />
@@ -87,7 +77,7 @@
   <!--footer inicio-->
   <div class="footer">
     <div class="container">
-      <h4>Feito com amor por aluno &hearts; SPTech &copy; 2023-2026</h4>
+        <h4>Feito com amor por Lucas Nogueira &hearts; SPTech &copy; 2023-2026</h4>
     </div>
   </div>
   <!--footer fim-->
@@ -97,50 +87,22 @@
 
 <script>
 
-  // Array para armazenar empresas cadastradas para validação de código de ativação 
-  let listaEmpresasCadastradas = [];
-
   function cadastrar() {
-    // aguardar();
-
     //Recupere o valor da nova input pelo nome do id
     // Agora vá para o método fetch logo abaixo
     var nomeVar = nome_input.value;
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
-    var codigoVar = codigo_input.value;
     var idEmpresaVincular
 
-    // Verificando se há algum campo em branco
-    if (
-      nomeVar == "" ||
-      emailVar == "" ||
-      senhaVar == "" ||
-      confirmacaoSenhaVar == "" ||
-      codigoVar == ""
-    ) {
-      cardErro.style.display = "block";
-      mensagem_erro.innerHTML =
-        "(Mensagem de erro para todos os campos em branco)";
+  // Validando os campos
+    let valido = validar(nomeVar, emailVar, senhaVar, confirmacaoSenhaVar)
 
-      finalizarAguardar();
-      return false;
+    if(valido == false){
+      return console.log('Campos invalidos, tente novamente')
     } else {
-      setInterval(sumirMensagem, 5000);
-    }
-
-    // Verificando se o código de ativação é de alguma empresa cadastrada
-    for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
-      if (listaEmpresasCadastradas[i].codigo_ativacao == codigoVar) {
-        idEmpresaVincular = listaEmpresasCadastradas[i].id
-        console.log("Código de ativação válido.");
-        break;
-      } else {
-        cardErro.style.display = "block";
-        mensagem_erro.innerHTML = "(Mensagem de erro para código inválido)";
-        finalizarAguardar();
-      }
+      console.log('Realisando cadastro')
     }
 
     // Enviando o valor da nova input
@@ -162,15 +124,6 @@
         console.log("resposta: ", resposta);
 
         if (resposta.ok) {
-          cardErro.style.display = "block";
-
-          mensagem_erro.innerHTML =
-            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-
-          setTimeout(() => {
-            window.location = "login.html";
-          }, "2000");
-
           limparFormulario();
           finalizarAguardar();
         } else {
@@ -208,4 +161,135 @@
   function sumirMensagem() {
     cardErro.style.display = "none";
   }
+
+  // Funções que validam os campos
+  function nomeValido(texto) {
+    let teste_letras = new RegExp("[ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZãÃâÂáÁàÀäÄêÊéÉèÈëËíÍìÌïÏîÎõÕôÔóÓòÒöÖûÛúÚùÙüÜñÑçÇýÝ]")
+    for (let i = 0; i < texto.length; i++) {
+        if (teste_letras.test(texto[i]) == false) {
+            return 1
+        }
+        else {
+            continue
+        }
+    }
+    return 0
+}
+
+function emailValido(texto) {
+    let teste_arroba = texto.includes('@')
+    let teste_com = texto.includes('.com')
+    let teste_valido = texto.indexOf('@') < texto.indexOf('.com') ? true : false
+
+    if (teste_arroba == false || teste_com == false || teste_valido == false) {
+        return 2
+    } else {
+        return 0
+    }
+}
+
+function senhaValido(texto) {
+    if (texto.length < 6 || texto.length > 50) {
+        return 4
+    }
+    return 0
+}
+
+function senhaIgual(texto1, texto2) {
+    if (texto1 != texto2) {
+        return 8
+    } else {
+        return 0
+    }
+}
+
+
+function validar(t1, t2, t3, t4) {
+    erros = 0
+    erros += nomeValido(t1)
+    erros += emailValido(t2)
+    erros += senhaValido(t3)
+    erros += senhaIgual(t4, t3)
+
+    let msg1 = 'seu nome só pode ser formado por letras'
+    let msg2 = 'seu email deve estar num formato válido'
+    let msg4 = 'sua senha precisa ter entre 6 e 50 caracteres'
+    let msg8 = 'os dois campos de senha precisam estar exatamente iguais'
+    let alerta = `Você está prestes à assinar o formulário de admissão da Guilda, mas a atendente para sua mão antes que a caneta toque o papel.
+
+Ela diz:
+"Calma aí viajante, `
+
+    if (t1 == '' || t2 == '' || t3 == '' || t4 == '') {
+        alerta += `você precisa preencher o formulário para criar seu cadastro."`
+        alert(alerta)
+        return false
+    } else if (erros == 1) {
+        alerta += `${msg1}. São as regras da guilda."`
+        alert(alerta)
+        return false
+    } else if (erros == 2) {
+        alerta += `${msg2}. São as regras da guilda."`
+        alert(alerta)
+        return false
+    } else if (erros == 3) {
+        alerta += `${msg1} e ${msg2}. São as regras da guilda."`
+        alert(alerta)
+        return false
+    } else if (erros == 4) {
+        alerta += `${msg4}. São as regras da guilda."`
+        alert(alerta)
+        return false
+    } else if (erros == 5) {
+        alerta += `${msg1}, e ${msg4}. São as regras da guilda."`
+        alert(alerta)
+        return false
+    } else if (erros == 6) {
+        alerta += `${msg2}, e ${msg4}. São as regras da guilda."`
+        alert(alerta)
+        return false
+    } else if (erros == 7) {
+        alerta += `${msg1}, ${msg2} e ${msg4}. São as regras da guilda."`
+        alert(alerta)
+        return false
+    } else if (erros == 8) {
+        alerta += `${msg8}. São as regras da guilda."`
+        alert(alerta)
+        return false
+    } else if (erros == 9) {
+        alerta += `${msg1} e ${msg8}. São as regras da guilda."`
+        alert(alerta)
+        return false
+    } else if (erros == 10) {
+        alerta += `${msg2} e ${msg8}. São as regras da guilda."`
+        alert(alerta)
+        return false
+    } else if (erros == 11) {
+        alerta += `${msg1}, ${msg2} e ${msg8}. São as regras da guilda."`
+        alert(alerta)
+        return false
+    } else if (erros == 12) {
+        alerta += `${msg4} e ${msg8}. São as regras da guilda."`
+        alert(alerta)
+        return false
+    } else if (erros == 13) {
+        alerta += `${msg1}, ${msg4} e ${msg8}. São as regras da guilda."`
+        alert(alerta)
+        return false
+    } else if (erros == 14) {
+        alerta += `${msg2}, ${msg4} e ${msg8}. São as regras da guilda."`
+        alert(alerta)
+        return false
+    } else if (erros == 15) {
+        alerta += `${msg1}, ${msg2}, ${msg4} e ${msg8}. São as regras da guilda."`
+        alert(alerta)
+        return false
+    } else {
+        alert(`Após assinar o pergaminho a atendente pega-o e começa a ler os dados informados.
+            
+Alguns segundos se passam e ela guarda a folha abaixo do balcão enquanto olha para você com um sorrizo dizendo:
+"Será um prazer ter você com a gente, ${t1}!"`)
+return true
+    }
+}
 </script>
