@@ -6,53 +6,74 @@
 comandos para mysql server
 */
 
-CREATE DATABASE aquatech;
+CREATE DATABASE dns_2e;
 
-USE aquatech;
-
-CREATE TABLE empresa (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	razao_social VARCHAR(50),
-	cnpj CHAR(14),
-	codigo_ativacao VARCHAR(50)
-);
+USE dns_2e;
 
 CREATE TABLE usuario (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	nome VARCHAR(50),
-	email VARCHAR(50),
-	senha VARCHAR(50),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+id INT PRIMARY KEY AUTO_INCREMENT,
+nome VARCHAR(50) not null,
+email VARCHAR(100) not null,
+senha VARCHAR(256) not null
 );
 
-CREATE TABLE aviso (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	titulo VARCHAR(100),
-	descricao VARCHAR(150),
-	fk_usuario INT,
-	FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
+CREATE TABLE personagem (
+id INT PRIMARY KEY AUTO_INCREMENT,
+nome varchar(100) not null,
+raca varchar(45) not null,
+classe varchar(45) not null,
+forc int not null,
+des int not null,
+cons int not null,
+intel int not null,
+sab int not null,
+car int not null,
+hp_total int,
+hp_atual int,
+criado_em datetime default current_timestamp(),
+id_player INT,
+FOREIGN KEY (id_player) REFERENCES usuario(id)
 );
 
-create table aquario (
-/* em nossa regra de negócio, um aquario tem apenas um sensor */
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	descricao VARCHAR(300),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+create table pericias (
+id_personagem int,
+foreign key pericias(id_personagem) references personagem(id),
+primary key(id_personagem),
+acrobacia tinyint(1) default 0,
+lidar_animais tinyint(1) default 0,
+arcanismo tinyint(1) default 0,
+atletismo tinyint(1) default 0,
+atuacao tinyint(1) default 0,
+blefar tinyint(1) default 0,
+furtividade tinyint(1) default 0,
+historia tinyint(1) default 0,
+intimidacao tinyint(1) default 0,
+intuicao tinyint(1) default 0,
+investigacao tinyint(1) default 0,
+medicina tinyint(1) default 0,
+natureza tinyint(1) default 0,
+percepcao tinyint(1) default 0,
+persuasao tinyint(1) default 0,
+prestidigitacao tinyint(1) default 0,
+religiao tinyint(1) default 0,
+sobrevivencia tinyint(1) default 0
 );
 
-/* esta tabela deve estar de acordo com o que está em INSERT de sua API do arduino - dat-acqu-ino */
-
-create table medida (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	temperatura DECIMAL,
-	momento DATETIME,
-	fk_aquario INT,
-	FOREIGN KEY (fk_aquario) REFERENCES aquario(id)
+create table rolagens (
+id int auto_increment,
+id_player int,
+constraint rolagens_player foreign key (id_player) references usuario(id),
+primary key(id, id_player),
+dado int,
+fk_personagem int,
+constraint rolagens_personagem foreign key (fk_personagem) references personagem(id),
+data_rolagem datetime default current_timestamp()
 );
 
-insert into empresa (razao_social, codigo_ativacao) values ('Empresa 1', 'ED145B');
-insert into empresa (razao_social, codigo_ativacao) values ('Empresa 2', 'A1B2C3');
-insert into aquario (descricao, fk_empresa) values ('Aquário de Estrela-do-mar', 1);
-insert into aquario (descricao, fk_empresa) values ('Aquário de Peixe-dourado', 2);
+insert into usuario (nome, email, senha) value ('placeholder','placeholder@placeholder.com',sha2('placeholder',256));
+insert into personagem (nome, raca, classe, forc, des, cons, intel, sab, car, hp_total, hp_atual, id_player) value ('','','',0,0,0,0,0,0,0,0,(select case when (select nome from usuario order by nome desc limit 1) = 'placeholder' then (select id from usuario where nome = 'placeholder') else (select count(id)+1 from usuario) end from usuario));
+insert into pericias (id_personagem) value ((select case when (select nome from personagem) = '' then (select id from personagem where nome = '' order by id desc limit 1) else (select count(id)+1 from personagem) end from personagem));
+
+select * from usuario;
+select * from personagem;
+select * from pericias;
