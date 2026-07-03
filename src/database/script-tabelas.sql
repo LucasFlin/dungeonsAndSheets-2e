@@ -71,8 +71,19 @@ data_rolagem datetime default current_timestamp()
 );
 
 insert into usuario (nome, email, senha) value ('placeholder','placeholder@placeholder.com',sha2('placeholder',256));
-insert into personagem (nome, raca, classe, forc, des, cons, intel, sab, car, hp_total, hp_atual, id_player) value ('','','',0,0,0,0,0,0,0,0,(select case when (select nome from usuario order by nome desc limit 1) = 'placeholder' then (select id from usuario where nome = 'placeholder') else (select count(id)+1 from usuario) end from usuario));
-insert into pericias (id_personagem) value ((select case when (select nome from personagem) = '' then (select id from personagem where nome = '' order by id desc limit 1) else (select count(id)+1 from personagem) end from personagem));
+
+delimiter $
+create trigger TG_personagem_nulo after insert on usuario for each row
+begin
+insert into personagem (nome, raca, classe, forc, des, cons, intel, sab, car, hp_total, hp_atual, id_player) value ('','','',0,0,0,0,0,0,0,0,new.id);
+end$
+
+create trigger TG_pericias after insert on personagem for each row
+begin
+insert into pericias (id_personagem) value (new.id);
+end$
+delimiter ;
+
 
 select * from usuario;
 select * from personagem;
