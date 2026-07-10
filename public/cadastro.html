@@ -43,10 +43,6 @@
       <div class="card card-cadastro">
         <h2>Formulário de admissão da Guilda</h2>
         <div class="formulario">
-          <!--
-                         Para inserir mais um campo, copie uma das inputs abaixo.
-                         Assim que inserir vá para o script abaixo.
-                     -->
           <div class="campo">
             <span>Nome:</span>
             <input id="nome_input" type="text" placeholder="Seu nome" />
@@ -88,13 +84,12 @@
 <script>
 
   function cadastrar() {
-    //Recupere o valor da nova input pelo nome do id
+    // Recupere o valor da nova input pelo nome do id
     // Agora vá para o método fetch logo abaixo
     var nomeVar = nome_input.value;
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
     var confirmacaoSenhaVar = confirmacao_senha_input.value;
-    var idEmpresaVincular
 
   // Validando os campos
     let valido = validar(nomeVar, emailVar, senhaVar, confirmacaoSenhaVar)
@@ -117,7 +112,6 @@
         nomeServer: nomeVar,
         emailServer: emailVar,
         senhaServer: senhaVar,
-        idEmpresaVincularServer: idEmpresaVincular
       }),
     })
       .then(function (resposta) {
@@ -136,30 +130,6 @@
       });
 
     return false;
-  }
-
-  // Listando empresas cadastradas 
-  function listar() {
-    fetch("/empresas/listar", {
-      method: "GET",
-    })
-      .then(function (resposta) {
-        resposta.json().then((empresas) => {
-          empresas.forEach((empresa) => {
-            listaEmpresasCadastradas.push(empresa);
-
-            console.log("listaEmpresasCadastradas")
-            console.log(listaEmpresasCadastradas[0].codigo_ativacao)
-          });
-        });
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-      });
-  }
-
-  function sumirMensagem() {
-    cardErro.style.display = "none";
   }
 
   // Funções que validam os campos
@@ -289,7 +259,7 @@ Ela diz:
             
 Alguns segundos se passam e ela guarda a folha abaixo do balcão enquanto olha para você com um sorrizo dizendo:
 "Será um prazer ter você com a gente, ${t1}!"`)
-return true
+      return true
     }
 }
 </script>

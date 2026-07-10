@@ -63,7 +63,6 @@
             <div class="linha">
                 <select id="slct_personagem" oninput="trocaPersonagem()" class="select_personagem">
                     <option value="">Selecione um personagem</option>
-                    <option value="novo">Novo personagem...</option>
                 </select>
                 <div class="hp">
                     <div class="graf_vida">
@@ -76,117 +75,117 @@
                 <div class="atributos">
                     <div class="atributo">
                         <p>Força</p>
-                        <button id="roll_forca" class="dado animado" onclick="roll(forc)"></button>
+                        <button id="roll_forca" class="dado animado" onclick="roll(bonusFor)"></button>
                     </div>
                     <div class="atributo">
                         <p>Destreza</p>
-                        <button id="roll_des" class="dado animado" onclick="roll(des)"></button>
+                        <button id="roll_des" class="dado animado" onclick="roll(bonusDes)"></button>
                     </div>
                     <div class="atributo">
                         <p>Constituição</p>
-                        <button id="roll_cons" class="dado animado" onclick="roll(cons)"></button>
+                        <button id="roll_cons" class="dado animado" onclick="roll(bonusCons)"></button>
                     </div>
                     <div class="atributo">
                         <p>Inteligência</p>
-                        <button id="roll_int" class="dado animado" onclick="roll(intel)"></button>
+                        <button id="roll_int" class="dado animado" onclick="roll(bonusInt)"></button>
                     </div>
                     <div class="atributo">
                         <p>Sabedoria</p>
-                        <button id="roll_sab" class="dado animado" onclick="roll(sab)"></button>
+                        <button id="roll_sab" class="dado animado" onclick="roll(bonusSab)"></button>
                     </div>
                     <div class="atributo">
                         <p>Carisma</p>
-                        <button id="roll_car" class="dado animado" onclick="roll(car)"></button>
+                        <button id="roll_car" class="dado animado" onclick="roll(bonusCar)"></button>
                     </div>
                 </div>
                 <div class="pericias">
                     <div class="pericia">
                         <button id="acrobacia" class="dadinho animado"
-                            onclick="rollPericia(bonusDes, acrobaciaPersonagem)"></button>
+                            onclick="rollPericia(bonusDes, listaPersonagens[slct_personagem.value].acrobacia)"></button>
                         <label for="acrobacia">Acrobacia <span>(Des)</span></label>
                     </div>
                     <div class="pericia">
                         <button id="arcanismo" class="dadinho animado"
-                            onclick="rollPericia(bonusInt, arcanismoPersonagem)"></button>
+                            onclick="rollPericia(bonusInt, listaPersonagens[slct_personagem.value].arcanismo)"></button>
                         <label for="arcanismo">Arcanismo <span>(Int)</span></label>
                     </div>
                     <div class="pericia">
                         <button id="atletismo" class="dadinho animado"
-                            onclick="rollPericia(bonusFor, atletismoPersonagem)"></button>
+                            onclick="rollPericia(bonusFor, listaPersonagens[slct_personagem.value].atletismo)"></button>
                         <label for="atletismo">Atletismo <span>(For)</span></label>
                     </div>
                     <div class="pericia">
                         <button id="atuacao" class="dadinho animado"
-                            onclick="rollPericia(bonusCar, atuacaoPersonagem)"></button>
+                            onclick="rollPericia(bonusCar, listaPersonagens[slct_personagem.value].atuacao)"></button>
                         <label for="atuacao">Atuação <span>(Car)</span></label>
                     </div>
                     <div class="pericia">
                         <button id="enganacao" class="dadinho animado"
-                            onclick="rollPericia(bonusCar, enganacaoPersonagem)"></button>
+                            onclick="rollPericia(bonusCar, listaPersonagens[slct_personagem.value].enganacao)"></button>
                         <label for="enganacao">Enganação <span>(Car)</span></label>
                     </div>
                     <div class="pericia">
                         <button id="furtividade" class="dadinho animado"
-                            onclick="rollPericia(bonusDes, furtividadePersonagem)"></button>
+                            onclick="rollPericia(bonusDes, listaPersonagens[slct_personagem.value].furtividade)"></button>
                         <label for="furtividade">Furtividade <span>(Des)</span></label>
                     </div>
                     <div class="pericia">
                         <button id="historia" class="dadinho animado"
-                            onclick="rollPericia(bonusInt, historiaPersonagem)"></button>
+                            onclick="rollPericia(bonusInt, listaPersonagens[slct_personagem.value].historia)"></button>
                         <label for="historia">Historia <span>(Int)</span></label>
                     </div>
                     <div class="pericia">
                         <button id="intimidacao" class="dadinho animado"
-                            onclick="rollPericia(bonusCar, intimidacaoPersonagem)"></button>
+                            onclick="rollPericia(bonusCar, listaPersonagens[slct_personagem.value].intimidacao)"></button>
                         <label for="intimidacao">Intimidação <span>(Car)</span></label>
                     </div>
                     <div class="pericia">
-                        <button id="intuicao" class="dadinho animado" onclick="rollPericia(intuicaoPersonagem)"></button>
+                        <button id="intuicao" class="dadinho animado" onclick="rollPericia(intuicao)"></button>
                         <label for="intuicao">Intuição <span>(Sab)</span></label>
                     </div>
                     <div class="pericia">
                         <button id="investigacao" class="dadinho animado"
-                            onclick="rollPericia(bonusInt, investicacaoPersonagem)"></button>
+                            onclick="rollPericia(bonusInt, listaPersonagens[slct_personagem.value].investicacao)"></button>
                         <label for="investigacao">Investigação <span>(Int)</span></label>
                     </div>
                     <div class="pericia">
                         <button id="lidar" class="dadinho animado"
-                            onclick="rollPericia(bonusSab, lidarPersonagem)"></button>
+                            onclick="rollPericia(bonusSab, listaPersonagens[slct_personagem.value].lidar)"></button>
                         <label for="lidar">Lidar com Animais <span>(Sab)</span></label>
                     </div>
                     <div class="pericia">
                         <button id="medicina" class="dadinho animado"
-                            onclick="rollPericia(bonusSab, medicinaPersonagem)"></button>
+                            onclick="rollPericia(bonusSab, listaPersonagens[slct_personagem.value].medicina)"></button>
                         <label for="medicina">Medicina <span>(Sab)</span></label>
                     </div>
                     <div class="pericia">
                         <button id="natureza" class="dadinho animado"
-                            onclick="rollPericia(bonusInt, naturezaPersonagem)"></button>
+                            onclick="rollPericia(bonusInt, listaPersonagens[slct_personagem.value].natureza)"></button>
                         <label for="natureza">Natureza <span>(Int)</span></label>
                     </div>
                     <div class="pericia">
                         <button id="percepcao" class="dadinho animado"
-                            onclick="rollPericia(bonusSab, percepcaoPersonagem)"></button>
+                            onclick="rollPericia(bonusSab, listaPersonagens[slct_personagem.value].percepcao)"></button>
                         <label for="percepcao">Percepção <span>(Sab)</span></label>
                     </div>
                     <div class="pericia">
                         <button id="persuasao" class="dadinho animado"
-                            onclick="rollPericia(bonusCar, persuasaoPersonagem)"></button>
+                            onclick="rollPericia(bonusCar, listaPersonagens[slct_personagem.value].persuasao)"></button>
                         <label for="persuasao">Persuasão <span>(Car)</span></label>
                     </div>
                     <div class="pericia">
                         <button id="prestidigitacao" class="dadinho animado"
-                            onclick="rollPericia(bonusDes, prestidigitacaoPersonagem)"></button>
+                            onclick="rollPericia(bonusDes, listaPersonagens[slct_personagem.value].prestidigitacao)"></button>
                         <label for="prestidigitacao">Prestidigitação <span>(Des)</span></label>
                     </div>
                     <div class="pericia">
                         <button id="religiao" class="dadinho animado"
-                            onclick="rollPericia(bonusInt, religiaoPersonagem)"></button>
+                            onclick="rollPericia(bonusInt, listaPersonagens[slct_personagem.value].religiao)"></button>
                         <label for="religiao">Religião <span>(Int)</span></label>
                     </div>
                     <div class="pericia">
                         <button id="sobrevivencia" class="dadinho animado"
-                            onclick="rollPericia(bonusSab, sobrevivenciaPersonagem)"></button>
+                            onclick="rollPericia(bonusSab, listaPersonagens[slct_personagem.value].sobrevivencia)"></button>
                         <label for="roll_sobrevivencia">Sobrevivência <span>(Sab)</span></label>
                     </div>
                 </div>
@@ -195,9 +194,322 @@
 
 
 </body>
-
 </html>
 
 <script>
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO
+    let listaPersonagens = {}
+    window.onload = exibirPersonagens()
 
+    let idPersonagemAtual = 0
+
+    let hpTPersonagem = 0
+    let hpAPersonagem = 0
+
+    let bonusFor = 0
+    let bonusDes = 0
+    let bonusCons = 0
+    let bonusInt = 0
+    let bonusSab = 0
+    let bonusCar = 0
+
+    // FUNÇÕES REAL OFICIAL
+
+    function exibirPersonagens() {
+        JSON.parse(sessionStorage.PERSONAGENS).forEach(item => {
+            if (item.nome != ''){
+                document.getElementById("slct_personagem").innerHTML += `<option value="${item.id}">${item.nome}</option>`
+            
+                listaPersonagens[item.id] = {
+                    "nome": item.nome,
+                    "classe": item.classe,
+                    "raca": item.raca,
+                    "hp_atual": Number(item.hp_atual),
+                    "hp_total": Number(item.hp_total),
+                    "forca": Number(item.forc),
+                    "destreza": Number(item.des),
+                    "constituicao": Number(item.cons),
+                    "inteligencia": Number(item.intel),
+                    "sabedoria": Number(item.sab),
+                    "carisma": Number(item.car),
+                    "acrobacia": item.acrobacia,
+                    "arcanismo": item.arcanismo,
+                    "atletismo": item.atletismo,
+                    "atuacao": item.atuacao,
+                    "blefar": item.blefar,
+                    "furtividade": item.furtividade,
+                    "historia": item.historia,
+                    "intimidacao": item.intimidacao,
+                    "intuicao": item.intuicao,
+                    "investigacao": item.investigacao,
+                    "lidar_animais": item.lidar_animais,
+                    "medicina": item.medicina,
+                    "natureza": item.natureza,
+                    "percepcao": item.percepcao,
+                    "persuasao": item.persuasao,
+                    "prestidigitacao": item.prestidigitacao,
+                    "religiao": item.religiao,
+                    "sobrevivencia": item.sobrevivencia
+                }
+            }
+        });
+    }
+
+    function trocaPersonagem() {
+        Id = slct_personagem.value
+        console.log(idPersonagemAtual)
+        console.log(listaPersonagens)
+                    hpTPersonagem = listaPersonagens[Id].hp_total
+                    hpAPersonagem = listaPersonagens[Id].hp_atual
+
+                    bonusFor = bonus(listaPersonagens[Id].forca)
+                    bonusDes = bonus(listaPersonagens[Id].destreza)
+                    bonusCons = bonus(listaPersonagens[Id].constituicao)
+                    bonusInt = bonus(listaPersonagens[Id].inteligencia)
+                    bonusSab = bonus(listaPersonagens[Id].sabedoria)
+                    bonusCar = bonus(listaPersonagens[Id].carisma)
+
+                    roll_forca.innerHTML = mostrarBonus(bonusFor)
+                    roll_des.innerHTML = mostrarBonus(bonusDes)
+                    roll_cons.innerHTML = mostrarBonus(bonusCons)
+                    roll_int.innerHTML = mostrarBonus(bonusInt)
+                    roll_sab.innerHTML = mostrarBonus(bonusSab)
+                    roll_car.innerHTML = mostrarBonus(bonusCar)
+                    numero_hp.innerHTML = `${hpAPersonagem}/${hpTPersonagem}`
+
+                    if (listaPersonagens[Id].acrobacia == 1) {
+                        acrobacia.classList.add('proficiente')
+                    }else{
+                        acrobacia.classList.remove('proficiente')
+                    }
+
+                    if (listaPersonagens[Id].arcanismo == 1) {
+                        arcanismo.classList.add('proficiente')
+                    }else{
+                        arcanismo.classList.remove('proficiente')
+                    }
+
+                    if (listaPersonagens[Id].atletismo == 1) {
+                        atletismo.classList.add('proficiente')
+                    }else{
+                        atletismo.classList.remove('proficiente')
+                    }
+
+                    if (listaPersonagens[Id].atuacao == 1) {
+                        atuacao.classList.add('proficiente')
+                    }else{
+                        atuacao.classList.remove('proficiente')
+                    }
+
+                    if (listaPersonagens[Id].enganacao == 1) {
+                        enganacao.classList.add('proficiente')
+                    }else{
+                        enganacao.classList.remove('proficiente')
+                    }
+
+                    if (listaPersonagens[Id].furtividade == 1) {
+                        furtividade.classList.add('proficiente')
+                    }else{
+                        furtividade.classList.remove('proficiente')
+                    }
+
+                    if (listaPersonagens[Id].historia == 1) {
+                        historia.classList.add('proficiente')
+                    }else{
+                        historia.classList.remove('proficiente')
+                    }
+
+                    if (listaPersonagens[Id].intimidacao == 1) {
+                        intimidacao.classList.add('proficiente')
+                    }else{
+                        intimidacao.classList.remove('proficiente')
+                    }
+
+                    if (listaPersonagens[Id].intuicao == 1) {
+                        intuicao.classList.add('proficiente')
+                    }else{
+                        intuicao.classList.remove('proficiente')
+                    }
+
+                    if (listaPersonagens[Id].investicacao == 1) {
+                        investigacao.classList.add('proficiente')
+                    }else{
+                        investigacao.classList.remove('proficiente')
+                    }
+
+                    if (listaPersonagens[Id].lidar_animais == 1) {
+                        lidar.classList.add('proficiente')
+                    }else{
+                        lidar.classList.remove('proficiente')
+                    }
+
+                    if (listaPersonagens[Id].medicina == 1) {
+                        medicina.classList.add('proficiente')
+                    }else{
+                        medicina.classList.remove('proficiente')
+                    }
+
+                    if (listaPersonagens[Id].natureza == 1) {
+                        natureza.classList.add('proficiente')
+                    }else{
+                        natureza.classList.remove('proficiente')
+                    }
+
+                    if (listaPersonagens[Id].percepcao == 1) {
+                        percepcao.classList.add('proficiente')
+                    }else{
+                        percepcao.classList.remove('proficiente')
+                    }
+
+                    if (listaPersonagens[Id].persuasao == 1) {
+                        persuasao.classList.add('proficiente')
+                    }else{
+                        persuasao.classList.remove('proficiente')
+                    }
+
+                    if (listaPersonagens[Id].prestidigitacao == 1) {
+                        prestidigitacao.classList.add('proficiente')
+                    }else{
+                        prestidigitacao.classList.remove('proficiente')
+                    }
+
+                    if (listaPersonagens[Id].religiao == 1) {
+                        religiao.classList.add('proficiente')
+                    }else{
+                        religiao.classList.remove('proficiente')
+                    }
+
+                    if (listaPersonagens[Id].sobrevivencia == 1) {
+                        sobrevivencia.classList.add('proficiente')
+                    }else{
+                        sobrevivencia.classList.remove('proficiente')
+                    }
+                
+            
+    }
+
+    function bonus(atributo, mostrar) {
+        let bonus = Math.floor(atributo / 2) - 5
+        return bonus
+    }
+
+    function mostrarBonus(bonus) {
+        if (bonus > 0){
+            return `+${bonus}`
+        } else {
+            return bonus
+        }
+    }
+    
+    // FUNÇÕES ANTIGAS
+
+    function vida(operacao) {
+        hpAPersonagem = hpAPersonagem + operacao
+        if (hpAPersonagem > hpTPersonagem) {
+            hpAPersonagem -= 1
+        } else {
+            numero_hp.innerHTML = `${hpAPersonagem}/${hpTPersonagem}`
+            atualizarVida()
+        }
+    }
+
+    function atualizarVida() {
+
+        fetch("/personagens/atualizarVida", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                personagemId: slct_personagem.value,
+                vida: hpAPersonagem
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    console.log('Vida atualizada!')
+                } else {
+                    throw "Houve um erro ao tentar atualizar!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+    }
+
+    function roll(bonus) {
+        let dado = (Math.random() * (20 - 1) + 1).toFixed(0)
+        let dado_final = Number(dado) + Number(bonus)
+
+        fetch("/rolagens/registrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                playerId: sessionStorage.ID_USUARIO,
+                personagemId: slct_personagem.value,
+                dado: dado_final
+            }),
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                console.log("Dado adicionado no banco!")
+                console.log(resposta);
+            }else{
+                console.log('Erro')
+            }
+
+        })
+        if(bonus >= 0){
+            alert(`Resultado: ${dado_final}
+d20+${Number(bonus)}`)
+        }else{
+            alert(`Resultado: ${dado_final}
+d20${Number(bonus)}`)
+        }
+        
+        return dado
+    }
+
+    function rollPericia(bonus, pericia){
+        let dado = (Math.random() * (20 - 1) + 1).toFixed(0)
+        let dado_final = Number(dado) + Number(bonus)
+        let prof = '+0'
+        console.log(pericia)
+        if(pericia == 1){
+            dado_final += 2
+            prof = '+2'
+        }
+
+        fetch("/rolagens/registrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                playerId: sessionStorage.ID_USUARIO,
+                personagemId: slct_personagem.value,
+                dado: dado_final
+            }),
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                console.log("Dado adicionado no banco!")
+                console.log(resposta);
+            }else{
+                console.log('Erro')
+            }
+
+        })
+
+        if(bonus >= 0){
+            alert(`Resultado: ${dado_final}
+d20+${Number(bonus)}${prof}`)
+        }else{
+            alert(`Resultado: ${dado_final}
+d20${Number(bonus)}${prof}`)
+        }
+        return dado
+    }
 </script>

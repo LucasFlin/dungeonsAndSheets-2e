@@ -65,12 +65,10 @@ id_player int,
 constraint rolagens_player foreign key (id_player) references usuario(id),
 primary key(id, id_player),
 dado int,
-fk_personagem int,
-constraint rolagens_personagem foreign key (fk_personagem) references personagem(id),
+id_personagem int,
+constraint rolagens_personagem foreign key (id_personagem) references personagem(id),
 data_rolagem datetime default current_timestamp()
 );
-
-insert into usuario (nome, email, senha) value ('placeholder','placeholder@placeholder.com',sha2('placeholder',256));
 
 delimiter $
 create trigger TG_personagem_nulo after insert on usuario for each row
@@ -84,7 +82,6 @@ insert into pericias (id_personagem) value (new.id);
 end$
 delimiter ;
 
+insert into usuario (nome, email, senha) value ('placeholder','placeholder@placeholder.com',sha2('placeholder',256));
 
-select * from usuario;
-select * from personagem;
-select * from pericias;
+update pericias set acrobacia = 0, lidar_animais = 0, arcanismo = 0, atletismo = 0, atuacao = 0, blefar = 0, furtividade = 0, historia = 0, intimidacao = 0, intuicao = 0, investigacao = 0, medicina = 0, natureza = 0, percepcao = 0, persuasao = 0, prestidigitacao = 0, religiao = 0, sobrevivencia = 0 where id_personagem = (select case when (select nome from personagem order by nome desc limit 1) = '' then (select id from personagem order by nome desc limit 1) else (select count(id)+1 from personagem) end from personagem)

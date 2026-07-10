@@ -221,6 +221,8 @@
 </body>
 
 <script>
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO
+
     let acrobaciaPersonagem = 0
     let arcanismoPersonagem = 0
     let atletismoPersonagem = 0
@@ -249,7 +251,7 @@
             } else {
                 acrobaciaPersonagem = 0
                 div.classList.remove("proficiente")
-                console.log(pericia, "é vdd")
+                console.log(acrobaciaPersonagem, "é vdd")
             }
         }
         if (pericia == "arcanismoPersonagem") {
@@ -260,7 +262,7 @@
             } else {
                 arcanismoPersonagem = 0
                 div.classList.remove("proficiente")
-                console.log(pericia, "é vdd")
+                console.log(arcanismoPersonagem, "é vdd")
             }
         }
         if (pericia == "atletismoPersonagem") {
@@ -441,26 +443,133 @@
         }
     }
 
+    function atualizaTxt(ipt, div){
+        let placeholder = (Math.floor(Number(ipt.value)/2))-5
 
-
-    function exibirAquarios() {
-        JSON.parse(sessionStorage.AQUARIOS).forEach(item => {
-            document.getElementById("cardAquarios").innerHTML += `
-                    <div class="card-aquario">
-                        <div class="title-aquario">
-                            <h1>${item.descricao}</h1>
-                        </div>
-                        <div class="desc-aquario">
-                        <div class="temperatura">
-                            <p id="temp_aquario_${item.id}">-°C</p>
-                        </div>
-                        <div class="cor-alerta" id="card_${item.id}"></div>
-                    </div>
-                    </div>
-                    `
-        });
+        if(placeholder > 0){
+            div.innerHTML = `+${placeholder}`
+        } else {
+            div.innerHTML = placeholder
+        }
     }
 
+    function criarPersonagem(){
+        let nomeNovo = ipt_nome.value
+        let racaNovo = ipt_raca.value
+        let classeNovo = ipt_classe.value
+        let vidaNovo = hp()
+        let forcNovo = ipt_for.value
+        let dexNovo = ipt_dex.value
+        let consNovo = ipt_const.value
+        let intNovo = ipt_int.value
+        let sabNovo = ipt_sab.value
+        let carNovo = ipt_car.value
+
+        console.log(sessionStorage.ID_USUARIO)
+        console.log(nomeNovo)
+        console.log(racaNovo)
+        console.log(classeNovo)
+        console.log(forcNovo)
+        console.log(dexNovo)
+        console.log(consNovo)
+        console.log(intNovo)
+        console.log(sabNovo)
+        console.log(carNovo)
+        console.log(vidaNovo)
+        fetch("/personagens/cadastrarPersonagem", {
+            method: "POST",
+            headers: {
+                "Content-Type":"application/json",
+            },
+            body: JSON.stringify({
+                playerId: sessionStorage.ID_USUARIO,
+                nome: nomeNovo,
+                raca: racaNovo,
+                classe: classeNovo,
+                forc: forcNovo,
+                des: dexNovo,
+                cons: consNovo,
+                intel: intNovo,
+                sab: sabNovo,
+                car: carNovo,
+                hp_total: vidaNovo
+            })
+        }).then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    console.log("Personagem cadastrado!")
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+       setTimeout(() => {atualizarPericias()}, 500) 
+    }
+
+    function atualizarPericias(){
+        fetch("/personagens/cadastrarPericias", {
+            method:"PUT",
+            headers:{
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                nome: ipt_nome.value,
+                acrobacia: acrobaciaPersonagem,
+                lidar_animais: lidarPersonagem,
+                arcanismo: arcanismoPersonagem ,
+                atletismo: atletismoPersonagem,
+                atuacao: atuacaoPersonagem,
+                blefar: menganacaoPersonagem,
+                furtividade: furtividadePersonage,
+                historia: historiaPersonagem,
+                intimidacao: intimidacaoPersonagem,
+                intuicao: intuicaoPersonagem,
+                investigacao: investicacaoPersonagem,
+                medicina: medicinaPersonagem,
+                natureza: naturezaPersonagem,
+                percepcao: percepcaoPersonagem,
+                persuasao: persuasaoPersonagem,
+                prestidigitacao: prestidigitacaoPersonagem,
+                religiao: religiaoPersonagem,
+                sobrevivencia: sobrevivenciaPersonagem
+            })
+        }).then(function (resposta) {
+                console.log("resposta: ", resposta)
+
+                if (resposta.ok) {
+                    console.log("Pericias atualizadas!")
+                } else {
+                    throw "Houve um erro ao tentar realizar a atualização das pericias!"
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`)
+            })
+    }
+
+    function hp(){
+        let hp_total = 0
+        let bonusHp = (Math.floor(ipt_const.value)/2)-5
+        classe = ipt_classe.value
+
+        if (classe == 'barbaro') {
+            hp_total = 12 + bonusHp
+            hp_total = Number(hp_total)
+        } else if (classe == 'patrulheiro' || classe == 'paladino' || classe == 'guerreiro') {
+            hp_total = 10 + bonusHp
+            hp_total = Number(hp_total)
+        } else if (classe == 'mago' || classe == 'feiticeiro') {
+            hp_total = 6 + bonusHp
+            hp_total = Number(hp_total)
+        } else {
+            hp_total = 8 + bonusHp
+            hp_total = Number(hp_total)
+        }
+        return hp_total
+    }
 </script>
 
 </html>
