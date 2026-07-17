@@ -7,7 +7,7 @@ router.post("/registrar", function (req, res) {
     rolagemController.registrar(req, res)
 })
 
-router.get("/listar", function (req, res) {
+router.get("/:playerId", function (req, res) {
     rolagemController.listar(req, res)
 })
 

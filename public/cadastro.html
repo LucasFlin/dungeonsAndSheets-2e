@@ -84,8 +84,8 @@
 <script>
 
   function cadastrar() {
-    // Recupere o valor da nova input pelo nome do id
-    // Agora vá para o método fetch logo abaixo
+    let funcionou = false
+
     var nomeVar = nome_input.value;
     var emailVar = email_input.value;
     var senhaVar = senha_input.value;
@@ -120,6 +120,7 @@
         if (resposta.ok) {
           limparFormulario();
           finalizarAguardar();
+          funcionou = true
         } else {
           throw "Houve um erro ao tentar realizar o cadastro!";
         }
@@ -129,7 +130,9 @@
         finalizarAguardar();
       });
 
-    return false;
+    if (funcionou == true){
+      window.location = "./dashboard/login.html"
+    }
   }
 
   // Funções que validam os campos

@@ -1,7 +1,7 @@
 var database = require('../database/config')
 
 function listar(playerId) {
-    var instrucao = `select p.nome, r.dado from rolagens r join personagem p on r.id_personagem = p.id where id_player = ${playerId} order by data_rolagem desc limit 10;`
+    var instrucao = `select p.nome, r.dado from rolagens r join personagem p on r.id_personagem = p.id where r.id_player = ${playerId} order by data_rolagem desc limit 10;`
     console.log(`Executando instrução SQL: ${instrucao}`)
     return database.executar(instrucao)
 }

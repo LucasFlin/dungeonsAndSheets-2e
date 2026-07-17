@@ -454,6 +454,8 @@
     }
 
     function criarPersonagem(){
+        let funcionou = false
+
         let nomeNovo = ipt_nome.value
         let racaNovo = ipt_raca.value
         let classeNovo = ipt_classe.value
@@ -499,6 +501,7 @@
 
                 if (resposta.ok) {
                     console.log("Personagem cadastrado!")
+                    funcionou = true
                 } else {
                     throw "Houve um erro ao tentar realizar o cadastro!";
                 }
@@ -507,6 +510,7 @@
                 console.log(`#ERRO: ${resposta}`);
             });
        setTimeout(() => {atualizarPericias()}, 500) 
+       setTimeout(() => {window.location = "./dashboard/personagens.html"}, 1000)
     }
 
     function atualizarPericias(){

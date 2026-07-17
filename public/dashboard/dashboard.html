@@ -102,46 +102,8 @@
                 <canvas id="graficoAtributos" class="grafico"></canvas>
                 <canvas id="graficoDados" class="grafico"></canvas>
             </div>
-            <!-- <div class="btns-dash" id="btnAquario">
-                O gráfico é chamado de acordo com o id (fk_aquario) do banco  
-            </div> -->
-
-            <!-- <div class="avisos">
-                <div id="alerta">
-                </div>
-                <div class="container">
-                    <h1>Publicar um aviso</h1>
-                    <div class="div-form">
-                        <form id="form_postagem" method="post" onsubmit="return publicar()">
-                            <label>
-                                Título:
-                                <br>
-                                <input name="titulo" id="titulo" maxlength="100" type="text">
-                            </label>
-                            <br>
-                            <br>
-                            <label>
-                                Descrição (máximo de 250 caracteres):
-                                <br>
-                                <textarea name="descricao" id="textarea_descricao" maxlength="250" rows="5"></textarea>
-                            </label>
-                            <br>
-                            <br>
-                            <button>Enviar</button>
-                        </form>
-                    </div>
-                    <h1>Mural de Avisos</h1>
-                    <div class="div-results">
-                        <div id="feed_container" class="feed-container">
-                        </div>
-                    </div>
-                </div>
-            </div> -->
         </div>
     </div>
-
-
-
 
 </body>
 
@@ -149,8 +111,257 @@
 
 <script>
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO
+    let listaPersonagens = []
+    let personagensPorAtributo = []
+    let rolagensNome = []
+    let rolagensDado = []
 
-  const graf1 = document.getElementById('graficoAtributos');
+    let nomeForte = ''
+    let maisForte = 0
+    let nomeAgil = ''
+    let maisAgil = 0
+    let nomeRes = ''
+    let maisRes = 0
+    let nomeInt = ''
+    let maisInt = 0
+    let nomeSab = ''
+    let maisSab = 0
+    let nomeCar = ''
+    let maisCar = 0
+
+    let contaFor = 0
+    let contaDes = 0
+    let contaCons = 0
+    let contaInt = 0
+    let contaSab = 0
+    let contaCar = 0
+    let atributoMaisUsado = ''
+
+    window.onload = listarPersonagens()
+
+    function listarPersonagens() {
+        let i = 0
+        JSON.parse(sessionStorage.PERSONAGENS).forEach(item => {
+            if (item.nome != ''){            
+                listaPersonagens[i] = {
+                    "id": item.id,
+                    "nome": item.nome,
+                    "forca": Number(item.forc),
+                    "destreza": Number(item.des),
+                    "constituicao": Number(item.cons),
+                    "inteligencia": Number(item.intel),
+                    "sabedoria": Number(item.sab),
+                    "carisma": Number(item.car),
+                }
+                i++
+            }
+        })
+        analizarPersonagens()
+    }
+
+    function analizarPersonagens(){
+        listaPersonagens.forEach(personagem => {
+            if(personagem.forca > maisForte){
+                maisForte = personagem.forca
+                nomeForte = personagem.nome
+            }
+            if(personagem.destreza > maisAgil){
+                maisAgil = personagem.destreza
+                nomeAgil = personagem.nome
+            }
+            if(personagem.constituicao > maisRes){
+                maisRes = personagem.constituicao
+                nomeRes = personagem.nome
+            }
+            if(personagem.inteligencia > maisInt){
+                maisInt = personagem.inteligencia
+                nomeInt = personagem.nome
+            }
+            if(personagem.sabedoria > maisSab){
+                maisSab = personagem.sabedoria
+                nomeSab = personagem.nome
+            }
+            if(personagem.carisma > maisCar){
+                maisCar = personagem.carisma
+                nomeCar = personagem.nome
+            }
+
+            if (personagem.forca >= personagem.destreza && personagem.forca >= personagem.constituicao && personagem.forca >= personagem.inteligencia && personagem.forca >= personagem.sabedoria && personagem.forca >= personagem.carisma){
+                if(personagem.forca == personagem.destreza){
+                    contaFor++
+                    contaDes++ 
+                } else if(personagem.forca == personagem.constituicao){
+                    contaFor++ 
+                    contaCons++
+                } else if(personagem.forca == personagem.inteligencia){
+                    contaFor++ 
+                    contaInt++
+                } else if(personagem.forca == personagem.sabedoria){
+                    contaFor++ 
+                    contaSab++
+                } else if(personagem.forca == personagem.carisma){
+                    contaFor++ 
+                    contaCar++
+                } else {
+                    contaFor++  
+                }
+            } else if (personagem.destreza >= personagem.forca && personagem.destreza >= personagem.constituicao && personagem.destreza >= personagem.inteligencia && personagem.destreza >= personagem.sabedoria && personagem.destreza >= personagem.carisma){
+                if(personagem.forca == personagem.destreza){
+                    contaFor++
+                    contaDes++ 
+                } else if(personagem.destreza == personagem.constituicao){
+                    contaDes++ 
+                    contaCons++
+                } else if(personagem.destreza == personagem.inteligencia){
+                    contaDes++ 
+                    contaInt++
+                } else if(personagem.destreza == personagem.sabedoria){
+                    contaDes++ 
+                    contaSab++
+                } else if(personagem.destreza == personagem.carisma){
+                    contaDes++ 
+                    contaCar++
+                } else {
+                    contaDes++  
+                }
+            } else if (personagem.constituicao >= personagem.destreza && personagem.constituicao >= personagem.forca && personagem.constituicao >= personagem.inteligencia && personagem.constituicao >= personagem.sabedoria && personagem.constituicao >= personagem.carisma){
+                if(personagem.constituicao == personagem.forca){
+                    contaFor++
+                    contaCons++ 
+                } else if(personagem.destreza == personagem.constituicao){
+                    contaDes++ 
+                    contaCons++
+                } else if(personagem.constituicao == personagem.inteligencia){
+                    contaCons++ 
+                    contaInt++
+                } else if(personagem.constituicao == personagem.sabedoria){
+                    contaCons++ 
+                    contaSab++
+                } else if(personagem.constituicao == personagem.carisma){
+                    contaCons++ 
+                    contaCar++
+                } else {
+                    contaCons++  
+                }
+            } else if (personagem.inteligencia >= personagem.destreza && personagem.inteligencia >= personagem.constituicao && personagem.inteligencia >= personagem.forca && personagem.inteligencia >= personagem.sabedoria && personagem.inteligencia >= personagem.carisma){
+                if(personagem.inteligencia == personagem.forca){
+                    contaFor++
+                    contaInt++ 
+                } else if(personagem.inteligencia == personagem.destreza){
+                    contaDes++ 
+                    contaInt++
+                } else if(personagem.constituicao == personagem.inteligencia){
+                    contaCons++ 
+                    contaInt++
+                } else if(personagem.inteligencia == personagem.sabedoria){
+                    contaInt++ 
+                    contaSab++
+                } else if(personagem.inteligencia == personagem.carisma){
+                    contaInt++ 
+                    contaCar++
+                } else {
+                    contaInt++  
+                }
+            } else if (personagem.sabedoria >= personagem.destreza && personagem.sabedoria >= personagem.constituicao && personagem.sabedoria >= personagem.inteligencia && personagem.sabedoria >= personagem.forca && personagem.sabedoria >= personagem.carisma){
+                if(personagem.sabedoria == personagem.forca){
+                    contaFor++
+                    contaSab++ 
+                } else if(personagem.sabedoria == personagem.destreza){
+                    contaDes++ 
+                    contaSab++
+                } else if(personagem.sabedoria == personagem.inteligencia){
+                    contaSab++ 
+                    contaInt++
+                } else if(personagem.constituicao == personagem.sabedoria){
+                    contaCons++ 
+                    contaSab++
+                } else if(personagem.sabedoria == personagem.carisma){
+                    contaSab++ 
+                    contaCar++
+                } else {
+                    contaSab++  
+                }
+            } else if (personagem.carisma >= personagem.destreza && personagem.carisma >= personagem.constituicao && personagem.carisma >= personagem.inteligencia && personagem.carisma >= personagem.sabedoria && personagem.carisma >= personagem.forca){
+                if(personagem.carisma == personagem.forca){
+                    contaFor++
+                    contaCar++ 
+                } else if(personagem.carisma == personagem.destreza){
+                    contaDes++ 
+                    contaCar++
+                } else if(personagem.carisma == personagem.inteligencia){
+                    contaCar++ 
+                    contaInt++
+                } else if(personagem.carisma == personagem.sabedoria){
+                    contaCar++ 
+                    contaSab++
+                } else if(personagem.constituicao == personagem.carisma){
+                    contaCons++ 
+                    contaCar++
+                } else {
+                    contaCar++  
+                }
+            }
+        })
+            
+            if(contaFor > contaDes && contaFor > contaCons && contaFor > contaInt && contaFor > contaSab && contaFor > contaCar){
+                atributoMaisUsado = 'Força'
+            } else if(contaCar > contaDes && contaCar > contaCons && contaCar > contaInt && contaCar > contaSab && contaCar > contaFor){
+                atributoMaisUsado = 'Carisma'
+            } else if(contaDes > contaFor && contaDes > contaCons && contaDes > contaInt && contaDes > contaSab && contaDes > contaCar){
+                atributoMaisUsado = 'Destreza'
+            } else if(contaCons > contaDes && contaCons > contaFor && contaCons > contaInt && contaCons > contaSab && contaCons > contaCar){
+                atributoMaisUsado = 'Constituição'
+            } else if(contaInt > contaDes && contaInt > contaCons && contaInt > contaFor && contaInt > contaSab && contaInt > contaCar){
+                atributoMaisUsado = 'Inteligência'
+            } else if(contaSab > contaDes && contaSab > contaCons && contaSab > contaInt && contaSab > contaSab && contaFor > contaCar){
+                atributoMaisUsado = 'Sabedoria'
+            }
+
+            personagensPorAtributo.push(contaFor)
+            personagensPorAtributo.push(contaDes)
+            personagensPorAtributo.push(contaCons)
+            personagensPorAtributo.push(contaInt)
+            personagensPorAtributo.push(contaSab)
+            personagensPorAtributo.push(contaCar)
+        
+        buscarRolagens()
+    }
+
+    async function buscarRolagens(){
+
+    fetch(`/rolagens/${sessionStorage.ID_USUARIO}`).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+                    resposta.forEach(item => {
+                        rolagensNome.push(item.nome)
+                        rolagensDado.push(item.dado)
+                    });
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+            setTimeout(() => mostrarDados(), 100)
+        }
+
+    function mostrarDados(){
+        forte.innerHTML = nomeForte
+        agil.innerHTML = nomeAgil
+        resistente.innerHTML = nomeRes
+        inteligente.innerHTML = nomeInt
+        sabio.innerHTML = nomeSab
+        carismatico.innerHTML = nomeCar
+
+        personagensTotal.innerHTML = listaPersonagens.length
+        atributoPopular.innerHTML = atributoMaisUsado
+
+        const graf1 = document.getElementById('graficoAtributos');
 
   new Chart(graf1, {
     type: 'bar',
@@ -158,7 +369,7 @@
       labels: ['For', 'Dex', 'Con', 'Int', 'Sab', 'Car'],
       datasets: [{
         label: 'Personagens por atributo',
-        data: [12, 19, 3, 5, 2, 3],
+        data: personagensPorAtributo,
         borderWidth: 1,
         backgroundColor: '#c62b29'
       }]
@@ -177,22 +388,26 @@
   new Chart(graf2, {
     type: 'line',
     data: {
-      labels: ['For', 'Dex', 'Con', 'Int', 'Sab', 'Car'],
+      labels: rolagensNome,
       datasets: [{
-        label: 'Personagens por atributo',
-        data: [12, 19, 3, 5, 2, 3],
+        label: 'Ultimos 10 dados rolados',
+        data: rolagensDado,
         borderWidth: 1,
         backgroundColor: '#c62b29'
       }]
     },
     options: {
-      scales: {
-        y: {
-          beginAtZero: true
+            scales: {
+                x: {
+                    ticks: {
+                        display: false
+                    }
+                }
+            }
         }
-      }
-    }
   });
+    }
+    
 
 //     Script antigo
 //
@@ -508,77 +723,77 @@
     // // }
 
     // // function atualizarFeed() {
-    // //     fetch("/avisos/listar").then(function (resposta) {
-    // //         if (resposta.ok) {
-    // //             if (resposta.status == 204) {
-    // //                 var feed = document.getElementById("feed_container");
-    // //                 var mensagem = document.createElement("span");
-    // //                 mensagem.innerHTML = "Nenhum resultado encontrado."
-    // //                 feed.appendChild(mensagem);
-    // //                 throw "Nenhum resultado encontrado!!";
-    // //             }
+    //     fetch("/avisos/listar").then(function (resposta) {
+    //         if (resposta.ok) {
+    //             if (resposta.status == 204) {
+    //                 var feed = document.getElementById("feed_container");
+    //                 var mensagem = document.createElement("span");
+    //                 mensagem.innerHTML = "Nenhum resultado encontrado."
+    //                 feed.appendChild(mensagem);
+    //                 throw "Nenhum resultado encontrado!!";
+    //             }
 
-    // //             resposta.json().then(function (resposta) {
-    // //                 console.log("Dados recebidos: ", JSON.stringify(resposta));
+    //             resposta.json().then(function (resposta) {
+    //                 console.log("Dados recebidos: ", JSON.stringify(resposta));
 
-    // //                 var feed = document.getElementById("feed_container");
-    // //                 feed.innerHTML = "";
-    // //                 for (let i = 0; i < resposta.length; i++) {
-    // //                     var publicacao = resposta[i];
+    //                 var feed = document.getElementById("feed_container");
+    //                 feed.innerHTML = "";
+    //                 for (let i = 0; i < resposta.length; i++) {
+    //                     var publicacao = resposta[i];
 
-    // //                     // criando e manipulando elementos do HTML via JavaScript
-    // //                     var divPublicacao = document.createElement("div");
-    // //                     var spanID = document.createElement("span");
-    // //                     var spanTitulo = document.createElement("span");
-    // //                     var spanNome = document.createElement("span");
-    // //                     var divDescricao = document.createElement("div");
-    // //                     var divButtons = document.createElement("div");
-    // //                     var btnEditar = document.createElement("button");
-    // //                     var btnDeletar = document.createElement("button");
+    //                     // criando e manipulando elementos do HTML via JavaScript
+    //                     var divPublicacao = document.createElement("div");
+    //                     var spanID = document.createElement("span");
+    //                     var spanTitulo = document.createElement("span");
+    //                     var spanNome = document.createElement("span");
+    //                     var divDescricao = document.createElement("div");
+    //                     var divButtons = document.createElement("div");
+    //                     var btnEditar = document.createElement("button");
+    //                     var btnDeletar = document.createElement("button");
 
 
-    // //                     spanID.innerHTML = "ID: <b>" + publicacao.idAviso + "</b>";
-    // //                     spanTitulo.innerHTML = "Título: <b>" + publicacao.titulo + "</b>";
-    // //                     spanNome.innerHTML = "Autor: <b>" + publicacao.nome + "</b>";
-    // //                     divDescricao.innerHTML = "Descrição: <b>" + publicacao.descricao + "</b>";
-    // //                     btnEditar.innerHTML = "Editar";
-    // //                     btnDeletar.innerHTML = "Deletar";
+    //                     spanID.innerHTML = "ID: <b>" + publicacao.idAviso + "</b>";
+    //                     spanTitulo.innerHTML = "Título: <b>" + publicacao.titulo + "</b>";
+    //                     spanNome.innerHTML = "Autor: <b>" + publicacao.nome + "</b>";
+    //                     divDescricao.innerHTML = "Descrição: <b>" + publicacao.descricao + "</b>";
+    //                     btnEditar.innerHTML = "Editar";
+    //                     btnDeletar.innerHTML = "Deletar";
 
-    // //                     divPublicacao.className = "publicacao";
-    // //                     spanTitulo.id = "inputNumero" + publicacao.idAviso;
-    // //                     spanNome.className = "publicacao-nome";
-    // //                     spanTitulo.className = "publicacao-titulo";
-    // //                     divDescricao.className = "publicacao-descricao";
+    //                     divPublicacao.className = "publicacao";
+    //                     spanTitulo.id = "inputNumero" + publicacao.idAviso;
+    //                     spanNome.className = "publicacao-nome";
+    //                     spanTitulo.className = "publicacao-titulo";
+    //                     divDescricao.className = "publicacao-descricao";
 
-    // //                     divButtons.className = "div-buttons"
+    //                     divButtons.className = "div-buttons"
 
-    // //                     btnEditar.className = "publicacao-btn-editar"
-    // //                     btnEditar.id = "btnEditar" + publicacao.idAviso;
-    // //                     btnEditar.setAttribute("onclick", `editar(${publicacao.idAviso})`);
+    //                     btnEditar.className = "publicacao-btn-editar"
+    //                     btnEditar.id = "btnEditar" + publicacao.idAviso;
+    //                     btnEditar.setAttribute("onclick", `editar(${publicacao.idAviso})`);
 
-    // //                     btnDeletar.className = "publicacao-btn-editar"
-    // //                     btnDeletar.id = "btnDeletar" + publicacao.idAviso;
-    // //                     btnDeletar.setAttribute("onclick", `deletar(${publicacao.idAviso})`);
+    //                     btnDeletar.className = "publicacao-btn-editar"
+    //                     btnDeletar.id = "btnDeletar" + publicacao.idAviso;
+    //                     btnDeletar.setAttribute("onclick", `deletar(${publicacao.idAviso})`);
 
-    // //                     divPublicacao.appendChild(spanID);
-    // //                     divPublicacao.appendChild(spanNome);
-    // //                     divPublicacao.appendChild(spanTitulo);
-    // //                     divPublicacao.appendChild(divDescricao);
-    // //                     divPublicacao.appendChild(divButtons);
-    // //                     divButtons.appendChild(btnEditar);
-    // //                     divButtons.appendChild(btnDeletar);
-    // //                     feed.appendChild(divPublicacao);
-    // //                 }
+    //                     divPublicacao.appendChild(spanID);
+    //                     divPublicacao.appendChild(spanNome);
+    //                     divPublicacao.appendChild(spanTitulo);
+    //                     divPublicacao.appendChild(divDescricao);
+    //                     divPublicacao.appendChild(divButtons);
+    //                     divButtons.appendChild(btnEditar);
+    //                     divButtons.appendChild(btnDeletar);
+    //                     feed.appendChild(divPublicacao);
+    //                 }
 
-    // //                 finalizarAguardar();
-    // //             });
-    // //         } else {
-    // //             throw ('Houve um erro na API!');
-    // //         }
-    // //     }).catch(function (resposta) {
-    // //         console.error(resposta);
-    // //         finalizarAguardar();
-    // //     });
+    //                 finalizarAguardar();
+    //             });
+    //         } else {
+    //             throw ('Houve um erro na API!');
+    //         }
+    //     }).catch(function (resposta) {
+    //         console.error(resposta);
+    //         finalizarAguardar();
+    //     });
     // // }
 
 </script>

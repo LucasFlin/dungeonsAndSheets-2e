@@ -1,13 +1,13 @@
 var rolagemModel = require('../models/rolagemModel')
 
 function listar(req, res){
-    var playerId = req.body.playerId
+    var playerId = req.params.playerId
     
     if (playerId == undefined) {
         res.status(400).send('Seu ID está undefined!');
     }
 
-    rolagemModel.listar(olayerId).then(function(resultado){
+    rolagemModel.listar(playerId).then(function(resultado){
         res.status(200).json
         (resultado)
     }).catch(function(erro){
